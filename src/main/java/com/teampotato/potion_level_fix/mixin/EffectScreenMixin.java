@@ -21,7 +21,8 @@ public abstract class EffectScreenMixin {
         String effect = pEffect.getEffect().getDescriptionId();
         Minecraft minecraft = Minecraft.getInstance();
         Map<String, Integer> map = PotionLevelFix.PLFAmplifier.get(effect);
-        Component amplifier = Component.literal(map.get(minecraft.player.getStringUUID()).toString());
+        if(map.get(minecraft.player.getStringUUID())+1<0) return;
+        Component amplifier = Component.literal(String.valueOf(map.get(minecraft.player.getStringUUID())+1));
         if (minecraft.player != null && PotionLevelFix.LANG.get()) {
             amplifier = Component.translatable("enchantment.level." + (map.get(minecraft.player.getStringUUID()) + 1));
         }
