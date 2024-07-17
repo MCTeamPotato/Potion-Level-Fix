@@ -24,13 +24,11 @@ public abstract class MobEffectInstanceMixin {
 
     @Redirect(method = "writeDetailsTo", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;putByte(Ljava/lang/String;B)V"))
     private void redirectPutByte(CompoundTag pNbt, String key, byte value) {
-        //PotionLevelFix.PLFAmplifier.put(this.getDescriptionId(), this.amplifier);
         pNbt.putInt("Amplifier", this.amplifier);
     }
 
     @ModifyVariable(method = "loadSpecifiedEffect", at = @At(value = "STORE"), ordinal = 0)
     private static int amplifierGet(int i, MobEffect pEffect, CompoundTag pNbt) {
-        //PotionLevelFix.PLFAmplifier.put(pEffect.getDescriptionId(), pNbt.getInt("Amplifier"));
         return pNbt.getInt("Amplifier");
     }
 
