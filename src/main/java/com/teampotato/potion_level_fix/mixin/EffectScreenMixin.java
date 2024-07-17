@@ -12,11 +12,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EffectRenderingInventoryScreen.class)
-public class EffectScreenMixin {
+public abstract class EffectScreenMixin {
     @Inject(method = "getEffectName", at = @At(value = "RETURN"), cancellable = true)
     private void modifyEffectName(MobEffectInstance pEffect, CallbackInfoReturnable<Component> cir) {
         MutableComponent mutablecomponent = pEffect.getEffect().getDisplayName().copy();
-        mutablecomponent.append(CommonComponents.SPACE).append(Component.translatable("enchantment.level." + (PotionLevelFix.PLFAmplifier + 1)));
+        String effect = pEffect.getEffect().getDescriptionId();
+        mutablecomponent.append(CommonComponents.SPACE).append(Component.translatable("enchantment.level." + (PotionLevelFix.PLFAmplifier.get(effect) + 1)));
         cir.setReturnValue(mutablecomponent);
     }
 }
