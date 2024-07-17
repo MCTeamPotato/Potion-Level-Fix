@@ -13,17 +13,13 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Mixin(MobEffectInstance.class)
 public abstract class MobEffectInstanceMixin {
     @Shadow
     private int amplifier;
-
-    @Shadow
-    public abstract MobEffect getEffect();
-
-    @Shadow
-    public abstract String toString();
-
     @Shadow public abstract String getDescriptionId();
 
     @Redirect(method = "writeDetailsTo", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;putByte(Ljava/lang/String;B)V"))
@@ -41,7 +37,9 @@ public abstract class MobEffectInstanceMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void sentAmplifier(LivingEntity pEntity, Runnable pOnExpirationRunnable, CallbackInfoReturnable<Boolean> cir) {
         if (this.amplifier >= 0) {
-            PotionLevelFix.PLFAmplifier.put(this.getDescriptionId(), this.amplifier);
+            Map<String, Integer> map = new HashMap<>();
+            map.put(pEntity.getStringUUID(), this.amplifier);
+            PotionLevelFix.PLFAmplifier.put(this.getDescriptionId(), map);
         }
     }
 }

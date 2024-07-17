@@ -13,5 +13,5 @@ import java.util.Map;
 public class PotionLevelFix {
     public static final String MODID = "potion_level_fix";
     public static final Logger LOGGER = LoggerFactory.getLogger("PotionLevelFix");
-    public static Map<String, Integer> PLFAmplifier = new HashMap<>();;
+    public static Map<String, Map<String, Integer>> PLFAmplifier = new HashMap<>();
 }
