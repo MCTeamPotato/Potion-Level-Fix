@@ -46,7 +46,7 @@ public abstract class MobEffectInstanceMixin {
     private void sentAmplifier(LivingEntity pEntity, Runnable pOnExpirationRunnable, CallbackInfoReturnable<Boolean> cir) {
         Map<String, Integer> map = new HashMap<>();
         map.put(pEntity.getStringUUID(), this.amplifier);
-        if (this.duration > 0) {
+        if (this.duration > 0 || this.duration == -1) {
             PotionLevelFix.PLFAmplifier.put(this.getDescriptionId(), map);
         } else {
             PotionLevelFix.PLFAmplifier.remove(this.getDescriptionId(), map);

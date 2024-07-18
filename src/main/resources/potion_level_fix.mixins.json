@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "potion_level_fix.refmap.json",
   "mixins": [
+    "EffectCommandsMixin",
     "MobEffectInstanceMixin"
   ],
   "client": [
