@@ -16,7 +16,7 @@ public class PotionLevelFix {
     public static final String MODID = "potion_level_fix";
     public static final Logger LOGGER = LoggerFactory.getLogger("PotionLevelFix");
     //  EffectID PlayerUUID EffectAmplifier
-    public static Map<String, Map<String, Integer>> PLFAmplifier = new HashMap<>(); //  Bad codes🙏
+    public static Map<String, Map<String, Integer>> effectMap = new HashMap<>(); //  Bad codes🙏
 
     public static ForgeConfigSpec CONFIG;
     public static ForgeConfigSpec.BooleanValue LANG;

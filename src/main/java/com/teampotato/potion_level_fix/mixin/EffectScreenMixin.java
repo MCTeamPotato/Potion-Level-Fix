@@ -3,10 +3,12 @@ package com.teampotato.potion_level_fix.mixin;
 import com.teampotato.potion_level_fix.PotionLevelFix;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,13 +21,19 @@ public abstract class EffectScreenMixin {
     private void modifyEffectName(MobEffectInstance pEffect, CallbackInfoReturnable<Component> cir) {
         MutableComponent mutablecomponent = pEffect.getEffect().getDisplayName().copy();
         String effect = pEffect.getEffect().getDescriptionId();
+        
         Minecraft minecraft = Minecraft.getInstance();
-        Map<String, Integer> map = PotionLevelFix.PLFAmplifier.get(effect);
-        if(map.get(minecraft.player.getStringUUID())+1<0) return;
-        Component amplifier = Component.literal(String.valueOf(map.get(minecraft.player.getStringUUID())+1));
-        if (minecraft.player != null && PotionLevelFix.LANG.get()) {
-            amplifier = Component.translatable("enchantment.level." + (map.get(minecraft.player.getStringUUID()) + 1));
+        LocalPlayer player = minecraft.player;
+        Map<String, Integer> map = PotionLevelFix.effectMap.get(effect);
+        
+        if((long)map.get(player.getStringUUID())+1<0) return;
+
+        Component amplifier = Component.literal(String.valueOf((long)map.get(player.getStringUUID())+1));
+
+        if (PotionLevelFix.LANG.get()) {
+            amplifier = Component.translatable("enchantment.level." + ((long)map.get(player.getStringUUID()) + 1));
         }
+        
         mutablecomponent.append(CommonComponents.SPACE).append(amplifier);
         cir.setReturnValue(mutablecomponent);
     }
