@@ -20,20 +20,10 @@ public class JadeEffectMixin {
     @Inject(method = "getEffectName", at = @At(value = "RETURN"), cancellable = true, remap = false)
     private static void modifyEffectName(MobEffectInstance pEffect, CallbackInfoReturnable<Component> cir) {
         MutableComponent mutablecomponent = pEffect.getEffect().getDisplayName().copy();
-        String effect = pEffect.getEffect().getDescriptionId();
-
-        Minecraft minecraft = Minecraft.getInstance();
-        LocalPlayer player = minecraft.player;
-        Map<String, Integer> map = PotionLevelFix.effectMap.get(effect);
-
-        if((long)map.get(player.getStringUUID())+1<0) return;
-
-        Component amplifier = Component.literal(String.valueOf((long)map.get(player.getStringUUID())+1));
-
+        Component amplifier = Component.literal(String.valueOf(pEffect.getAmplifier()+1));
         if (PotionLevelFix.LANG.get()) {
-            amplifier = Component.translatable("enchantment.level." + ((long)map.get(player.getStringUUID()) + 1));
+            amplifier = Component.translatable("enchantment.level." + (pEffect.getAmplifier() + 1));
         }
-
         mutablecomponent.append(CommonComponents.SPACE).append(amplifier);
         cir.setReturnValue(mutablecomponent);
     }
