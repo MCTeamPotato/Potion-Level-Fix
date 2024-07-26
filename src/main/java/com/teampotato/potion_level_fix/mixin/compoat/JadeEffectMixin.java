@@ -6,10 +6,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
+@Pseudo
 @Mixin(targets = "snownee.jade.addon.vanilla.StatusEffectsProvider")
 public class JadeEffectMixin {
     @Inject(method = "getEffectName", at = @At(value = "RETURN"), cancellable = true, remap = false)
