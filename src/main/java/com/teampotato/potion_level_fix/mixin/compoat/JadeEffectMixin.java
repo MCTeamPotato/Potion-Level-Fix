@@ -1,8 +1,6 @@
 package com.teampotato.potion_level_fix.mixin.compoat;
 
 import com.teampotato.potion_level_fix.PotionLevelFix;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -11,11 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import snownee.jade.addon.vanilla.StatusEffectsProvider;
 
-import java.util.Map;
-
-@Mixin(StatusEffectsProvider.class)
+@Mixin(targets = "snownee.jade.addon.vanilla.StatusEffectsProvider")
 public class JadeEffectMixin {
     @Inject(method = "getEffectName", at = @At(value = "RETURN"), cancellable = true, remap = false)
     private static void modifyEffectName(MobEffectInstance pEffect, CallbackInfoReturnable<Component> cir) {
