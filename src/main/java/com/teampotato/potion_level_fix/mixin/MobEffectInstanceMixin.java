@@ -34,23 +34,4 @@ public abstract class MobEffectInstanceMixin {
     private static int amplifierGet(int i, MobEffect pEffect, CompoundTag pNbt) {
         return pNbt.getInt("PLF:Amplifier");
     }
-
-    @Inject(method = "tick", at = @At("RETURN"))
-    private void sentAmplifier(LivingEntity pEntity, Runnable pOnExpirationRunnable, CallbackInfoReturnable<Boolean> cir) {
-        if (this.duration > 0 || this.duration == -1) {
-            String uuid = pEntity.getStringUUID();
-            int currentAmplifier = this.amplifier;
-            if (amplifierMap.containsKey(uuid)) {
-                if (currentAmplifier > amplifierMap.get(uuid)) {
-                    amplifierMap.put(uuid, currentAmplifier);
-                    effectMap.put(this.getDescriptionId(), amplifierMap);
-                }
-            } else {
-                amplifierMap.put(uuid, currentAmplifier);
-                effectMap.put(this.getDescriptionId(), amplifierMap);
-            }
-        } else {
-            effectMap.remove(this.getDescriptionId(), amplifierMap);
-        }
-    }
 }

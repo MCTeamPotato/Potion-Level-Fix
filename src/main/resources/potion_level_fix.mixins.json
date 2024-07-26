@@ -6,7 +6,8 @@
   "refmap": "potion_level_fix.refmap.json",
   "mixins": [
     "EffectCommandsMixin",
-    "MobEffectInstanceMixin"
+    "MobEffectInstanceMixin",
+    "compoat.JadeEffectMixin"
   ],
   "client": [
     "EffectScreenMixin"
