@@ -19,8 +19,8 @@ public class JadeEffectMixin {
         Component amplifier = Component.literal(String.valueOf(pEffect.getAmplifier()+1));
         if (PotionLevelFix.LANG.get()) {
             amplifier = Component.translatable("enchantment.level." + (pEffect.getAmplifier() + 1));
+            if (pEffect.getAmplifier() < 0) amplifier = Component.literal("↑ ↑ ↑");
         }
-        if (pEffect.getAmplifier() < 0) amplifier = Component.literal("↑ ↑ ↑");
         mutablecomponent.append(CommonComponents.SPACE).append(amplifier);
         cir.setReturnValue(mutablecomponent);
     }
