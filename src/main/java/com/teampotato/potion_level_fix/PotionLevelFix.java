@@ -7,9 +7,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Mod(PotionLevelFix.MODID)
 @Mod.EventBusSubscriber(modid = PotionLevelFix.MODID)
 public class PotionLevelFix {
