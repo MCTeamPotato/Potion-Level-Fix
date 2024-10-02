@@ -13,34 +13,26 @@ public class ModLanguageProvider extends LanguageProvider {
         super(output, PotionLevelFix.MODID, languages);
     }
 
-    private static final int[] VALUES = {
-            100, 90, 50, 40, 10, 9, 5, 4, 1
-    };
+    public String intToRoman(int num) {
 
-    private static final String[] ROMAN_NUMERALS = {
-            "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"
-    };
+        String[] roman = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int[] nums = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
 
-    public static String generateRomanNumeral(int number) {
-        if (number < 1 || number > 256) {
-            throw new IllegalArgumentException("Number must be between 1 and 256");
-        }
+        StringBuilder res = new StringBuilder();
 
-        StringBuilder roman = new StringBuilder();
-
-        for (int i = 0; i < VALUES.length; i++) {
-            while (number >= VALUES[i]) {
-                roman.append(ROMAN_NUMERALS[i]);
-                number -= VALUES[i];
+        for (int i = 0; i < nums.length && num >= 0; i++) {
+            while (nums[i] <= num) {
+                num -= nums[i];
+                res.append(roman[i]);
             }
         }
-
-        return roman.toString();
+        return res.toString();
     }
+
     @Override
     protected void addTranslations() {
-        for (int i = 11; i <= 256; i++) {
-            add("enchantment.level." + i, generateRomanNumeral(i));
+        for (int i = 11; i <= 4000; i++) {
+            add("enchantment.level." + i, intToRoman(i));
         }
     }
 }
