@@ -1,5 +1,6 @@
 package com.teampotato.potion_level_fix;
 
+import com.teampotato.potion_level_fix.network.NetworkHandler;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -25,5 +26,6 @@ public class PotionLevelFix {
     }
     public PotionLevelFix() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG);
+        NetworkHandler.register();
     }
 }
