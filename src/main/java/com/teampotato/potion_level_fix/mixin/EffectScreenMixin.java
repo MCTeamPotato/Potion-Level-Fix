@@ -1,7 +1,12 @@
 package com.teampotato.potion_level_fix.mixin;
 
 import com.teampotato.potion_level_fix.PotionLevelFix;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -15,12 +20,32 @@ public abstract class EffectScreenMixin {
     @Inject(method = "getEffectName", at = @At(value = "RETURN"), cancellable = true)
     private void modifyEffectName(MobEffectInstance pEffect, CallbackInfoReturnable<Component> cir) {
         MutableComponent mutablecomponent = pEffect.getEffect().getDisplayName().copy();
-        Component amplifier = Component.literal(String.valueOf(pEffect.getAmplifier()+1));
+        int amplifier = getAmplifier(pEffect);
+
+        Component amplifierText = Component.literal(String.valueOf(amplifier));
         if (PotionLevelFix.LANG.get()) {
-            amplifier = Component.translatable("enchantment.level." + (pEffect.getAmplifier() + 1));
+            amplifierText = Component.translatable("enchantment.level." + amplifier);
         }
-        if (pEffect.getAmplifier() < 0) amplifier = Component.literal("↑ ↑ ↑");
-        mutablecomponent.append(CommonComponents.SPACE).append(amplifier);
+        mutablecomponent.append(CommonComponents.SPACE).append(amplifierText);
         cir.setReturnValue(mutablecomponent);
+    }
+
+    private static int getAmplifier(MobEffectInstance pEffect) {
+        LocalPlayer localPlayer = Minecraft.getInstance().player;
+        CompoundTag persistentData = localPlayer.getPersistentData();
+        ListTag listTag = new ListTag();
+        int amplifier = 0;
+
+        if (persistentData.contains("PLF:Amplifier")){
+            listTag = persistentData.getList("PLF:Amplifier", 10);
+        }
+
+        for (Tag value : listTag) {
+            CompoundTag tag = (CompoundTag) value;
+            if (tag.contains(pEffect.getDescriptionId())) {
+                amplifier = tag.getInt(pEffect.getDescriptionId()) + 1;
+            }
+        }
+        return amplifier;
     }
 }

@@ -9,11 +9,11 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public class EffectCommandsMixin {
     @ModifyConstant(method = "register", constant = @Constant(intValue = 255, ordinal = 0))
     private static int amplifierChange(int constant){
-        return Integer.MAX_VALUE;
+        return Integer.MAX_VALUE-1;
     }
 
     @ModifyConstant(method = "register", constant = @Constant(intValue = 255, ordinal = 1))
     private static int amplifierInfiniteChange(int constant){
-        return Integer.MAX_VALUE;
+        return Integer.MAX_VALUE-1;
     }
 }
