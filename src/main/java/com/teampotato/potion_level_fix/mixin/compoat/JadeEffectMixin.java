@@ -16,12 +16,13 @@ public class JadeEffectMixin {
     @Inject(method = "getEffectName", at = @At(value = "RETURN"), cancellable = true, remap = false)
     private static void modifyEffectName(MobEffectInstance pEffect, CallbackInfoReturnable<Component> cir) {
         MutableComponent mutablecomponent = pEffect.getEffect().getDisplayName().copy();
-        Component amplifier = Component.literal(String.valueOf(pEffect.getAmplifier()+1));
-        if (PotionLevelFix.LANG.get()) {
-            amplifier = Component.translatable("enchantment.level." + (pEffect.getAmplifier() + 1));
-            if (pEffect.getAmplifier() < 0) amplifier = Component.literal("↑ ↑ ↑");
+        if (pEffect.getAmplifier() > 0){
+            Component amplifier = Component.literal(String.valueOf(pEffect.getAmplifier() + 1));
+            if (PotionLevelFix.LANG.get()) {
+                amplifier = Component.translatable("enchantment.level." + (pEffect.getAmplifier() + 1));
+            }
+            mutablecomponent.append(CommonComponents.SPACE).append(amplifier);
         }
-        mutablecomponent.append(CommonComponents.SPACE).append(amplifier);
         cir.setReturnValue(mutablecomponent);
     }
 }
