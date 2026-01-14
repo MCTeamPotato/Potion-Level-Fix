@@ -11,12 +11,9 @@ public class ModLanguageProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(TranslationBuilder translationBuilder) {
-        for (int i = 6; i < 11; i++) {
-            translationBuilder.add("potion.potency." + i, intToRoman(i));
-        }
-        for (int i = 11; i <= 4000; i++) {
-            translationBuilder.add("enchantment.level." + i, intToRoman(i));
-            translationBuilder.add("potion.potency." + i, intToRoman(i));
+        for (int i = 6; i <= 4000; i++) {
+            if (i != 4000) translationBuilder.add("potion.potency." + i, intToRoman(i+1));
+            if (i >= 11) translationBuilder.add("enchantment.level." + i, intToRoman(i));
         }
     }
 

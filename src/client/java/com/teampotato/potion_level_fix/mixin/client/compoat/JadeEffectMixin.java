@@ -18,17 +18,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Pseudo
 @Mixin(targets = "snownee.jade.addon.vanilla.StatusEffectsProvider")
 public class JadeEffectMixin {
-    @Definition(id = "mobEffectInstance", local = @Local(argsOnly = true, type = MobEffectInstance.class))
-    @Definition(id = "getAmplifier", method = "Lnet/minecraft/world/effect/MobEffectInstance;getAmplifier()I")
-    @Expression("mobEffectInstance.getAmplifier() <= 9")
-    @ModifyExpressionValue(method = "getEffectName", at = @At("MIXINEXTRAS:EXPRESSION"))
-    private static boolean greaterTrue(boolean original) {
-        return true;
-    }
-
-    @Expression("'enchantment.level.'")
-    @ModifyExpressionValue(method = "getEffectName", at = @At("MIXINEXTRAS:EXPRESSION"))
-    private static String hackI18Key(String original) {
-        return PotionLevelFix.CONFIG.effectNumberType ? original : "";
-    }
+//    @Definition(id = "mobEffectInstance", local = @Local(argsOnly = true, type = MobEffectInstance.class))
+//    @Definition(id = "getAmplifier", method = "Lnet/minecraft/world/effect/MobEffectInstance;getAmplifier()I")
+//    @Expression("mobEffectInstance.getAmplifier() <= 9")
+//    @ModifyExpressionValue(method = "getEffectName", at = @At("MIXINEXTRAS:EXPRESSION"))
+//    private static boolean greaterTrue(boolean original) {
+//        return true;
+//    }
+//
+//    @Expression("'enchantment.level.'")
+//    @ModifyExpressionValue(method = "getEffectName", at = @At("MIXINEXTRAS:EXPRESSION"))
+//    private static String hackI18Key(String original) {
+//        return PotionLevelFix.CONFIG.effectNumberType ? original : "";
+//    }
 }
