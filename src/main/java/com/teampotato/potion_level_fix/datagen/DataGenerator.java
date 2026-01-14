@@ -6,7 +6,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-@EventBusSubscriber(modid = PotionLevelFix.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = PotionLevelFix.MODID)
 public class DataGenerator {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {

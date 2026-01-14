@@ -13,7 +13,7 @@ public class MobEffectInstanceDetailsMixin {
             at = @At(value = "INVOKE",
                     target = "Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;group(Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;)Lcom/mojang/datafixers/Products$P7;"),
             index = 0)
-    private static App modifyByte(App par1) {
+    private static App<?, ?> modifyByte(App<?, ?> par1) {
         return Codec.INT.optionalFieldOf("amplifier", 0).forGetter(MobEffectInstance.Details::amplifier);
     }
 }

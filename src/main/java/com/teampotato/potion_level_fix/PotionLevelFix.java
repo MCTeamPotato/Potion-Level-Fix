@@ -1,15 +1,14 @@
 package com.teampotato.potion_level_fix;
 
-import com.teampotato.potion_level_fix.network.s2c.LevelPacketS2C;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +33,8 @@ public class PotionLevelFix {
     }
     public PotionLevelFix(ModContainer modContainer, IEventBus iEventBus) {
         modContainer.registerConfig(ModConfig.Type.COMMON, CONFIG);
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        iEventBus.<RegisterPayloadHandlersEvent>addListener(event -> {
-            PayloadRegistrar registrar = event.registrar("1");
-            registrar.playToClient(LevelPacketS2C.TYPE, LevelPacketS2C.STREAM_CODEC, LevelPacketS2C::handle);
-        });
+        if (FMLLoader.getDist() == Dist.CLIENT) {
+            modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        }
     }
 }

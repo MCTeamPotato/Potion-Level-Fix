@@ -17,7 +17,7 @@ repositories {
 }
 
 base {
-    archivesName = "${mod_name} - ${minecraft_version}"
+    archivesName = "${mod_name}-${modloader}-${minecraft_version}"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -83,7 +83,7 @@ dependencies {
     runtimeOnly "curse.maven:attributefix-280510:5824104"
     runtimeOnly "curse.maven:bookshelf-228525:6717571"
     runtimeOnly "curse.maven:prickle-1023259:6546240"
-    implementation"curse.maven:jade-324717:6738687"
+    implementation "curse.maven:jade-324717:6738687"
 }
 
 tasks.withType(ProcessResources).configureEach {
