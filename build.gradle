@@ -66,7 +66,7 @@ remapJar {
     inputFile.set(tasks.named("shadowJar").map { it.archiveFile.get() })
 }
 
-def generatedResources = file("src/generated")
+def generatedResources = file("src/generated/resources")
 sourceSets.main.resources { srcDir generatedResources }
 
 processResources {
