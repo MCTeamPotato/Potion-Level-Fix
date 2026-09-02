@@ -11,7 +11,9 @@ base {
 }
 
 fabricApi {
-    configureDataGeneration()
+    configureDataGeneration {
+        client = true
+    }
 }
 
 repositories {
@@ -44,8 +46,8 @@ dependencies {
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    compileOnly "curse.maven:jade-324717:${jade_version}"
-    runtimeOnly "curse.maven:jade-324717:${jade_version}"
+    modCompileOnly "curse.maven:jade-324717:${jade_version}"
+    modRuntimeOnly "curse.maven:jade-324717:${jade_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }

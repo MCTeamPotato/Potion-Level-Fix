@@ -118,4 +118,5 @@ run/
 !gradle-wrapper.jar
 
 scr/generated/
+src/main/generated/.cache/
 run-data
